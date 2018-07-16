@@ -14,16 +14,33 @@ class Zero_Matrix {
     
     func startingPoint(){
         
+        print("Randomly seeded array:")
         var randomMatrix = seed_matrix()
         
         print("*********************")
+        print("Zeroed array:")
         
         write_matrix(randomMatrix: &randomMatrix)
         
-        for elements in randomMatrix{
-            print(elements)
+        print("[", terminator:"")
+        var count = 0
+        for rows in 0...randomMatrix.count-1{
+            for columns in 0...randomMatrix[rows].count-1{
+                count += 1
+                if randomMatrix[rows][columns] < 10{
+                    print("0\(randomMatrix[rows][columns]), ", terminator:"")
+                }else{
+                    print("\(randomMatrix[rows][columns]), ", terminator:"")
+                }
+                
+                if count == randomMatrix[rows].count{
+                    print("]")
+                    print("[", terminator:"")
+                    count = 0
+                }
+            }
         }
-        
+        print("]")
     }
     
     func seed_matrix()->Array<Array<Int>>{
@@ -41,9 +58,25 @@ class Zero_Matrix {
             randomMatrix.append(columnArray)
         }
         
-        for elements in randomMatrix {
-            print(elements)
+        print("[", terminator:"")
+        var count = 0
+        for rows in 0...randomMatrix.count-1{
+            for columns in 0...randomMatrix[rows].count-1{
+                count += 1
+                if randomMatrix[rows][columns] < 10{
+                    print("0\(randomMatrix[rows][columns]), ", terminator:"")
+                }else{
+                    print("\(randomMatrix[rows][columns]), ", terminator:"")
+                }
+                
+                if count == randomMatrix[rows].count{
+                    print("]")
+                    print("[", terminator:"")
+                    count = 0
+                }
+            }
         }
+        print("]")
         
         return randomMatrix
     }
