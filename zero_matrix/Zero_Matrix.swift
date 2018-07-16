@@ -16,14 +16,16 @@ class Zero_Matrix {
         
         var randomMatrix = seed_matrix()
         
-        zero_matrix(randomMatrix: &randomMatrix)
+        print("*********************")
+        
+        write_matrix(randomMatrix: &randomMatrix)
         
     }
     
     func seed_matrix()->Array<Array<Int>>{
         
-        let n = arc4random_uniform(30)+20
-        let m = arc4random_uniform(30)+20
+        let n = arc4random_uniform(10)+10
+        let m = arc4random_uniform(10)+10
         
         var randomMatrix =  [[Int]]()
         
@@ -42,19 +44,37 @@ class Zero_Matrix {
         return randomMatrix
     }
     
-    func zero_matrix( randomMatrix: inout Array<Array<Int>>){
+    func write_matrix( randomMatrix: inout Array<Array<Int>>){
+        
+        var zeroesLocation = [[Int]]()
+        let rowCount = randomMatrix.count-1
         
         for rows in 0...randomMatrix.count-1{
             for columns in 0...randomMatrix[rows].count-1{
                 if randomMatrix[rows][columns] == 0{
-                    randomMatrix[rows] = Array(repeating: 0, count: randomMatrix.count-1)
-                    
+                    zeroesLocation.append([rows,columns])
                 }
             }
         }
         
-        for elements in randomMatrix {
+        for rows in 0...zeroesLocation.count-1{
+            zero_matrix(randomMatrix: &randomMatrix, row: zeroesLocation[rows][0], column: zeroesLocation[rows][1])
+        }
+        
+        for elements in randomMatrix{
             print(elements)
         }
+    }
+    
+    func zero_matrix(randomMatrix:inout Array<Array<Int>>, row:Int, column:Int){
+        
+        for columns in 0...randomMatrix[row].count-1{
+            randomMatrix[row][columns] = 0
+        }
+        
+        for rows in 0...randomMatrix.count-1{
+            randomMatrix[rows][column] = 0
+        }
+
     }
 }
